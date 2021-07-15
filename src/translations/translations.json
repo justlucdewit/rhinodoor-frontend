@@ -1,0 +1,11 @@
+{
+    "dutch": {
+        "width": "breedte",
+        "height": "hoogte"
+    },
+
+    "english": {
+        "width": "width",
+        "height": "height"
+    }
+}
