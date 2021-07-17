@@ -4,6 +4,8 @@ import router from './router';
 import VTooltip from 'v-tooltip';
 import VueRouter from 'vue-router';
 
+import './styles/global.scss'
+
 Vue.config.productionTip = false;
 Vue.use(VTooltip);
 

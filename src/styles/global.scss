@@ -1,0 +1,25 @@
+@import "color-sceme";
+
+.searchbar {
+    input {
+        border: 1px solid black;
+        border-radius: 10px;
+        width: calc(100% - 120px);
+        padding: 10px 20px;
+        margin: 20px;
+        font-weight: bold;
+        color: $main-color;
+
+        &:focus {
+            outline: none;
+            border: 1px solid $dark-color;
+            outline: 2px solid $dark-color;
+        }
+    }
+
+    i {
+        position: relative;
+        right: 60px;
+        color: #999;
+    }
+}

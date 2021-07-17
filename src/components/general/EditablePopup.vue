@@ -24,7 +24,7 @@
 
 				<div>
 					<div class="form-field">
-						<div>{{ doorData.colors.length }} Kleuren</div>
+						<div>{{ doorData.colorsRAL.length }} Kleuren</div>
 						<button class="button" @click="$refs.colorEditorPopup.show()">Kleuren editen</button>
 					</div>
 					<div class="form-field">
@@ -42,7 +42,8 @@
 		</div>
 
 		<ColorEditorPopup
-			ref="colorEditorPopup" />
+			ref="colorEditorPopup"
+			@submit="loadColors" />
 	</div>
 </template>
 
@@ -73,7 +74,8 @@ export default {
 			isVisible: false,
 			doorData: {
 				doorName: "",
-				colors: [],
+				colorsRAL: [],
+				colorsHex: [],
 				prices: [],
 				description: "",
 			}
@@ -87,7 +89,8 @@ export default {
 
 			this.doorData = {
 				doorName: "",
-				colors: [],
+				colorsRAL: [],
+				colorsHex: [],
 				prices: [],
 				description: "",
 			};
@@ -104,11 +107,19 @@ export default {
 			} else {
 				this.doorData = {
 					doorName: "",
-					colors: [],
+					colorsRAL: [],
+					colorsHex: [],
 					prices: [],
 					description: "",
 				};
 			}
+		},
+
+		loadColors(colors) {
+			this.doorData.colorsRAL = colors.colorsRAL;
+			
+			this.doorData.colorsHex = colors.colorsHex;
+			console.log(colors, this.doorData)
 		}
 	}
 };

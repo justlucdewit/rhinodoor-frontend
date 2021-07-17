@@ -142,14 +142,12 @@ export default {
 		async saveDoor(doorData) {
 			this.saving = true;
 
-			console.log(doorData)
-
 			await ApiService.createNewDoor({
 				doorName: doorData.doorName,
 				doorImage: "",
 				description: doorData.description,
-				colorsRAL: [],
-				colorsHex: [],
+				colorsRAL: doorData.colorsRAL,
+				colorsHex: doorData.colorsHex,
 				doorSizes: []
 			});
 

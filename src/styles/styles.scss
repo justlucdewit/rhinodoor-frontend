@@ -14,6 +14,15 @@
     }
 }
 
+.button.light {
+    background: $semi-light-color;
+    color: black;
+
+    &:hover, &:disabled {
+        background-color: $light-color;
+    }
+}
+
 h1.title {
     color: $main-color;
     margin: 10px 10px;
