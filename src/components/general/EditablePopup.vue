@@ -28,7 +28,7 @@
 						<button class="button" @click="$refs.colorEditorPopup.show()">Kleuren editen</button>
 					</div>
 					<div class="form-field">
-						<div>({{ doorData.prices.length }} Prijzen</div>
+						<div>{{ doorData.prices.length }} Prijzen</div>
 						<button class="button">Prijzen editen</button>
 					</div>
 				</div>

@@ -342,18 +342,26 @@ export default {
 	overflow: hidden;
 
 	table {
-		width: 100%;
+		height: 100%;
+		max-height: 63vh;
+		overflow: scroll;
+		display: block;
 
 		tbody {
-			max-height: 60vh;
-			overflow: scroll;
+			display: grid;
+			width: 100%;
+			
+			tr {
+				display: grid;
+				grid-template-columns: 1fr 6fr 6fr 4fr;
 
-			.color-preview {
-				width: 40px;
-				height: 40px;
-				background: red;
-				display: inline-block;
-				border-radius: 100%;
+				.color-preview {
+					width: 40px;
+					height: 40px;
+					background: red;
+					display: inline-block;
+					border-radius: 100%;
+				}
 			}
 		}
 	}
