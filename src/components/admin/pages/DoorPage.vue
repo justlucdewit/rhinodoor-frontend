@@ -146,7 +146,7 @@ export default {
 				doorName: doorData.doorName,
 				doorImage: "",
 				description: doorData.description,
-				colorsRAL: doorData.colorsRAL,
+				colorsRAL: doorData.colorsRal,
 				colorsHex: doorData.colorsHex,
 				doorSizes: []
 			});

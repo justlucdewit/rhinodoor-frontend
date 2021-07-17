@@ -15,7 +15,7 @@
 				<SearchBar v-model="filter" />
 				<table>
 					<tbody>
-						<tr v-for="(color, index) in filteredColorList" :key="index">
+						<tr v-for="(color, index) in filteredColorList" :key="index" @click="color.selected = !color.selected">
 							<td><input type="checkbox" v-model="color.selected"/></td>
 							<td>RAL {{ color.ral }}</td>
 							<td>{{ color.name }}</td>
@@ -300,6 +300,13 @@ export default {
 
 		hexToByte(hexColors) {
 			return hexColors.map(color => parseInt(color.substring(1).toLowerCase(), 16));
+		},
+
+		initialize(ralColors) {
+			this.colorList.forEach(color => {
+				if (ralColors.includes(color.ral))
+					color.selected = true;
+			});
 		},
 
 		async show() {

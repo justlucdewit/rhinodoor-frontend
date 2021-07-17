@@ -24,7 +24,7 @@
 
 				<div>
 					<div class="form-field">
-						<div>{{ doorData.colorsRAL.length }} Kleuren</div>
+						<div>{{ doorData.colorsRal.length }} Kleuren</div>
 						<button class="button" @click="$refs.colorEditorPopup.show()">Kleuren editen</button>
 					</div>
 					<div class="form-field">
@@ -74,7 +74,7 @@ export default {
 			isVisible: false,
 			doorData: {
 				doorName: "",
-				colorsRAL: [],
+				colorsRal: [],
 				colorsHex: [],
 				prices: [],
 				description: "",
@@ -89,7 +89,7 @@ export default {
 
 			this.doorData = {
 				doorName: "",
-				colorsRAL: [],
+				colorsRal: [],
 				colorsHex: [],
 				prices: [],
 				description: "",
@@ -102,12 +102,17 @@ export default {
 				let data = await ApiService.getDoor(this.doorId);
 				const dataBody = await data.text();
 				data = JSON.parse(dataBody);
+				
 				this.doorData.doorName = data.name;
 				this.doorData.description = data.description;
+				this.doorData.colorsRal = data.colorsRal;
+				this.doorData.colorsHex = data.colorsHex;
+
+				this.$refs.colorEditorPopup.initialize(data.colorsRal);
 			} else {
 				this.doorData = {
 					doorName: "",
-					colorsRAL: [],
+					colorsRal: [],
 					colorsHex: [],
 					prices: [],
 					description: "",
@@ -116,7 +121,7 @@ export default {
 		},
 
 		loadColors(colors) {
-			this.doorData.colorsRAL = colors.colorsRAL;
+			this.doorData.colorsRal = colors.colorsRAL;
 			
 			this.doorData.colorsHex = colors.colorsHex;
 			console.log(colors, this.doorData)
