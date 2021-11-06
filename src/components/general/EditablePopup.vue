@@ -10,7 +10,6 @@
 			</div>
 
 			<div class="form">
-				<div>
 					<div class="form-field">
 						<div>Deur naam</div>
 						<input type="text" v-model="doorData.doorName" />
@@ -20,19 +19,29 @@
 						<div>Deur beschrijving</div>
 						<textarea  v-model="doorData.description"></textarea>
 					</div>
-				</div>
 
-				<div>
+
+
 					<div class="form-field">
-						<div>{{ doorData.colorsRal.length }} Kleuren</div>
-						<button class="button" @click="$refs.colorEditorPopup.show()">Kleuren editen</button>
+						<div>
+							<span style="margin-right: 20px">{{ doorData.colorsRal.length }} Kleuren</span>
+							<button class="button" @click="$refs.colorEditorPopup.show()">Kleuren editen</button>
+						</div>
 					</div>
+
 					<div class="form-field">
-						<div>{{ doorData.prices.length }} Prijzen</div>
-						<button class="button">Prijzen editen</button>
+						<div>
+							<span style="margin-right: 20px">{{ doorData.prices.length }} Prijzen</span>
+							<button class="button">Prijzen editen</button>
+						</div>
 					</div>
-				</div>
-				
+
+					<div class="form-field">
+						<div>
+							<span style="margin-right: 20px">Deur preview</span>
+							<button class="button" @click="$refs.imageUploadPopup.show()">foto uploaden</button>
+						</div>
+					</div>
 			</div>
 
 			<div class="actions">
@@ -44,12 +53,17 @@
 		<ColorEditorPopup
 			ref="colorEditorPopup"
 			@submit="loadColors" />
+
+		<ImageUploadPopup
+			ref="imageUploadPopup" />
 	</div>
 </template>
 
 <script>
 import ApiService from "../../services/api.service"
+
 import ColorEditorPopup from "./ColorEditorPopup.vue"
+import ImageUploadPopup from "./ImageUploadPopup.vue"
 
 export default {
 	props: {
@@ -66,7 +80,8 @@ export default {
 	},
 
 	components: {
-		ColorEditorPopup
+		ColorEditorPopup,
+		ImageUploadPopup
 	},
 
 	data() {
@@ -149,18 +164,25 @@ export default {
 	position: fixed;
 	width: 60vw;
 	opacity: 100%;
-	top: 30vh;
+	top: 10vh;
 	left: 20vw;
 	display: grid;
 
 	.form {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-
 		.form-field {
 			font-weight: bold;
 			padding-top: 40px;
 			margin-left: 20px;
+
+			input {
+				width: 95%;
+			}
+
+			textarea {
+				width: 95%;
+				height: 150px;
+				resize: none;
+			}
 		}
 	}
 

@@ -69,9 +69,11 @@
 </template>
 
 <script>
+// Import components
 import Popup from "../../general/Popup"
 import EditablePopup from "../../general/EditablePopup"
 
+// Import services
 import ApiService from "../../../services/api.service"
 
 export default {
@@ -94,7 +96,7 @@ export default {
 
 	components: {
 		Popup,
-		EditablePopup
+		EditablePopup,
 	},
 
 	methods: {
@@ -142,11 +144,13 @@ export default {
 		async saveDoor(doorData) {
 			this.saving = true;
 
+			console.log(doorData)
+
 			await ApiService.createNewDoor({
 				doorName: doorData.doorName,
 				doorImage: "",
 				description: doorData.description,
-				colorsRAL: doorData.colorsRal,
+				colorsRAL: doorData.colorsRAL,
 				colorsHex: doorData.colorsHex,
 				doorSizes: []
 			});

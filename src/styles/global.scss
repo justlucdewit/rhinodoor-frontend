@@ -1,5 +1,11 @@
 @import "color-sceme";
 
+input[type="text"], textarea {
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid $main-color;  
+}
+
 .searchbar {
     input {
         border: 1px solid black;

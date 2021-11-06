@@ -15,24 +15,12 @@
 
         <div class="products">
             <DoorType
-                name="Plancha"
+                v-for="door in doors"
+                :key="door.id"
+                :name="door.doorName"
                 :price="915"
-                image="london"
+                :image="door.doorName + ' deur foto'"
                 link="./#/order?door=London"
-            />
-
-            <DoorType
-                name="Chicago"
-                :price="915"
-                image="chicago"
-                link="./#/order?door=Chicago"
-            />
-            
-            <DoorType
-                name="Manchester"
-                :price="1065"
-                image="manchester"
-                link="./#/order?door=Manchester"
             />
         </div>
 
@@ -142,10 +130,14 @@
 </template>
 
 <script>
+// Import components
 import DoorType from "../components/DoorType.vue"; 
 import Whatsapp from "../components/whatsapp.vue";
 import London from "../assets/doors/london.jpg";
 import WaveEdge from "@/components/WaveEdge";
+
+// Import services
+import apiService from "../services/api.service"
 
 export default {
     components: {
@@ -158,8 +150,21 @@ export default {
         return {
             images: {
                 London: London
-            }
+            },
+
+            doors: []
         };
+    },
+
+    async mounted() {
+      // Retrieve all of the doors
+      const doors = await apiService.getAllDoors();
+      const doorsBody = JSON.parse(await doors.text());
+
+      console.log(doorsBody)
+
+      // Save them in the state
+      this.doors = doorsBody;
     }
 }
 </script>
