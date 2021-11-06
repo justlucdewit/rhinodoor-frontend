@@ -4,25 +4,40 @@
 			
 		</div>
 
-		<div class="popup-body">
+		<div class="popup-body fullscreen">
 			<div class="popup-title">
-				Selecteer kleuren
+				Prijzen
 				<button class="button light" @click="isVisible = false" style="float: right"><i class="fas fa-times"></i></button>
 				<button class="button light" @click="submit" style="float: right"><i class="far fa-save"></i></button>
 			</div>
 
-			<div>
-				<SearchBar v-model="filter" />
-				<table>
-					<tbody>
-						<tr v-for="(color, index) in filteredColorList" :key="index" @click="color.selected = !color.selected">
-							<td><input type="checkbox" v-model="color.selected"/></td>
-							<td>RAL {{ color.ral }}</td>
-							<td>{{ color.name }}</td>
-							<td><span class="color-preview" :style="`background: ${color.hex}`"></span></td>
-						</tr>
-					</tbody>
-				</table>
+			<div style="padding-left: 20px;">
+				Groote (mm): <br />
+				<input v-model="currentSizeInput" type="number">&nbsp;&nbsp;&nbsp;
+				<button @click="widths.push(currentSizeInput);">Breedte toevoegen</button>&nbsp;&nbsp;&nbsp;
+				<button @click="heights.push(currentSizeInput);">Hoogte toevoegen</button>
+
+				<br /><br />
+				Prijzen: {{ widths.length }} hoogtes, {{ heights.length }} breedtes:
+				
+				<div class="table-wrapper" v-if="widths.length > 0 && heights.length > 0">
+					<table class="table">
+						<thead id="table-head">
+							<tr>
+								<th width="50"></th>
+								<th v-for="width in widths" :key="width">{{ width }}</th>
+							</tr>
+						</thead>
+						<tbody id="table-body" @scroll="fixscroll">
+							<tr v-for="height in heights" :key="height">
+								<td style="font-weight: bold">{{ height }}</td>
+								<td style="font-weight: bold" v-for="width in widths" :key="'cell' + width">
+									€ <input type="number" @input="handlePriceInput(width, height)">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 
 			<div class="actions">
@@ -49,26 +64,29 @@ export default {
 	data() {
 		return {
 			isVisible: false,
+			widths: [],
+			heights: [],
+			currentSizeInput: 0,
+			prices: []
 		};
 	},
 
-	components: {
-
-	},
-
-	computed: {
-		filteredColorList() {
-			return this.colorList
-				.filter(color => color.name.toLowerCase().includes(this.filter.toLowerCase()))
-				.sort((a, b) => (a.ral > b.ral) ? 1 : -1)
-		}
-	},
-
-	mounted() {
-		
-	},
-
 	methods: {
+		handlePriceInput(width, height) {
+			console.log("aaa");
+			this.prices.push({
+				width: width,
+				height: height
+			})
+		},
+
+		fixscroll() {
+			console.log("test")
+			const thead = document.getElementById("table-head");
+			const tbodyScroll = document.getElementById("table-body").scrollLeft;
+			thead.scrollLeft = tbodyScroll;
+		},
+
 		submit() {
 			const selected = this.colorList.filter(color => color.selected)
 
@@ -122,29 +140,74 @@ export default {
 	left: 20vw;
 	display: grid;
 	max-height: 80vh;
-	overflow: hidden;
 
-	table {
-		height: 100%;
-		max-height: 63vh;
-		overflow: scroll;
+	&.fullscreen {
+		max-height: 100vh;
+		width: 100vw;
+		left: 0;
+		top: 0;
+		height: 100vh;
 		display: block;
 
+		.popup-title {
+			margin-bottom: 20px;
+		}
+		
+		.table-wrapper {
+			height: 60vh;
+			width: calc(100vw - 40px);
+			overflow: hidden;
+
+			table, .table {
+				display: flex;
+				flex-direction: column;
+				flex: 1 1 auto;
+				width: calc(100vw - 40px);
+				height: 100%;
+				border-collapse: collapse;
+				overflow: hidden;
+
+				thead {
+					display: block;
+					overflow-x: hidden;
+					overflow-y: auto;
+				}
+
+				tbody {
+					display: block;
+					overflow: scroll;
+				}
+
+				td, th {
+					width: 6em;
+					min-width: 6em;
+					padding: 0.3em;
+					border: 1px solid #ddd;
+					background-color: white;
+				}
+
+				td:first-child, th:first-child {
+					position: sticky;
+					position: -webkit-sticky;
+					left:0;
+				}
+
+				input {
+					width: 90px;
+					appearance: textfield;
+				}
+			}
+		}
+	}
+
+	table {
+
+
 		tbody {
-			display: grid;
-			width: 100%;
+
 			
 			tr {
-				display: grid;
-				grid-template-columns: 1fr 6fr 6fr 4fr;
 
-				.color-preview {
-					width: 40px;
-					height: 40px;
-					background: red;
-					display: inline-block;
-					border-radius: 100%;
-				}
 			}
 		}
 	}

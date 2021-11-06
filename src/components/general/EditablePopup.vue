@@ -20,25 +20,23 @@
 						<textarea  v-model="doorData.description"></textarea>
 					</div>
 
-
-
 					<div class="form-field">
 						<div>
-							<span style="margin-right: 20px">{{ doorData.colorsRal.length }} Kleuren</span>
+							<span style="margin-right: 20px; display: inline-block; width: 150px;">{{ doorData.colorsRal.length }} Kleuren</span>
 							<button class="button" @click="$refs.colorEditorPopup.show()">Kleuren editen</button>
 						</div>
 					</div>
 
 					<div class="form-field">
 						<div>
-							<span style="margin-right: 20px">{{ doorData.prices.length }} Prijzen</span>
-							<button class="button">Prijzen editen</button>
+							<span style="margin-right: 20px; display: inline-block; width: 150px;">{{ doorData.prices.length }} Prijzen</span>
+							<button class="button" @click="$refs.priceEditorPopup.show()">Prijzen editen</button>
 						</div>
 					</div>
 
 					<div class="form-field">
 						<div>
-							<span style="margin-right: 20px">Deur preview</span>
+							<span style="margin-right: 20px; display: inline-block; width: 150px;">Deur preview</span>
 							<button class="button" @click="$refs.imageUploadPopup.show()">foto uploaden</button>
 						</div>
 					</div>
@@ -50,12 +48,12 @@
 			</div>
 		</div>
 
-		<ColorEditorPopup
-			ref="colorEditorPopup"
-			@submit="loadColors" />
+		<ColorEditorPopup ref="colorEditorPopup"
+						  @submit="loadColors" />
 
-		<ImageUploadPopup
-			ref="imageUploadPopup" />
+		<ImageUploadPopup ref="imageUploadPopup" />
+		
+		<PriceEditorPopup ref="priceEditorPopup"/>
 	</div>
 </template>
 
@@ -64,6 +62,7 @@ import ApiService from "../../services/api.service"
 
 import ColorEditorPopup from "./ColorEditorPopup.vue"
 import ImageUploadPopup from "./ImageUploadPopup.vue"
+import PriceEditorPopup from "./PriceEditorPopup.vue"
 
 export default {
 	props: {
@@ -81,7 +80,8 @@ export default {
 
 	components: {
 		ColorEditorPopup,
-		ImageUploadPopup
+		ImageUploadPopup,
+		PriceEditorPopup
 	},
 
 	data() {
